@@ -5,26 +5,33 @@ class Movies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: [{id: 0}],
-      url: "",
+      movies: []
     };
+    this.run = true;
   }
 
-  getMovies() {
-    fetch("https://imdb-api.com/en/API/MostPopularMovies/k_73lbxs1j")
-        .then(responce => responce.json())
-        .then(result => {this.setState({movies: result})})
-        .catch(err => {return <h1>Sorry, there was an error</h1>})
-    
+  async getMovies() {
+    if(this.run) {
+      this.run = false;
+      await fetch("https://imdb-api.com/en/API/MostPopularMovies/k_73lbxs1j")
+        .then(responce => {console.log(responce); responce.json();})
+        .then(result => this.state({ movies: result.items }))
+        .catch(err => err);
+      console.log('movies', this.state.movies);
+      let movies = [];
+
+    }
   }
 
   render() {
+    this.getMovies();
+    const { movies } = this.state;
     return (
       <div>
-        {this.getMovies()}
-        {this.state.movies.map((movie) => (
-          <Movie key={movie.id} id={movie.id} />
-        ))}
+        {console.log(this.state.movies)}
+        {movies.map((movie, index) => {
+          <Movie key={index} id={movie.id} movie={movie}/>
+        })}
       </div>
     );
   }
