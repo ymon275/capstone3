@@ -8,7 +8,8 @@ class App extends React.Component {
         this.state = {
             isSearch: false,
             type: "",
-            url: ""
+            url: "",
+            movies: []
         }
     }
 
@@ -16,10 +17,18 @@ class App extends React.Component {
     async onSearch() {
         // this.setState({isSearch: true})
         
-        await fetch(this.state.url).then(
-            responce => responce.json()).then(
-                result => console.log(result)
-            );
+        fetch(this.state.url,{
+        method:'GET',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        }).then(response=>{
+          return response.json()
+        }).then(result=> {
+        // this is the data we get after putting our data,
+          this.setState({ movies: result.items })
+          console.log('movies', this.state.movies)
+        });
         console.log("Search complete")
     }
 
@@ -27,14 +36,16 @@ class App extends React.Component {
         const isSearch = this.state.isSearch;
         let movies;
 
-        if(isSearch) {
-            movies = <Movies type="search"/>
-        } else if(!isSearch) {
-            movies = <Movies type="top"/>
-        }
+        // if(isSearch) {
+        //     movies = <Movies type="search"/>
+        // } else if(!isSearch) {
+        //     movies = <Movies type="top"/>
+        // }
 
         return <div>
+
             <NavBar onSearch={this.onSearch()}/>
+            <Movies/>
             {movies}
         </div>;
     }

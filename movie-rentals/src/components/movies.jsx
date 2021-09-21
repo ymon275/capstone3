@@ -13,25 +13,32 @@ class Movies extends React.Component {
   async getMovies() {
     if(this.run) {
       this.run = false;
-      await fetch("https://imdb-api.com/en/API/MostPopularMovies/k_73lbxs1j")
-        .then(responce => {console.log(responce); responce.json();})
-        .then(result => this.state({ movies: result.items }))
-        .catch(err => err);
-      console.log('movies', this.state.movies);
-      let movies = [];
-
-    }
-  }
+      fetch('https://imdb-api.com/en/API/MostPopularMovies/k_73lbxs1j',{
+        method:'GET',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        }).then(response=>{
+          return response.json()
+        }).then(result=> {
+        // this is the data we get after putting our data,
+          this.setState({ movies: result.items })
+          console.log('movies', this.state.movies)
+        });
+      };
+  };
 
   render() {
     this.getMovies();
     const { movies } = this.state;
+    // let fakeMovies = [{rank: 1, fullTitle: "Dora", id: "sdfasgivbas"}, {rank: 2, id: "bsvigabrs"}]
     return (
       <div>
         {console.log(this.state.movies)}
         {movies.map((movie, index) => {
-          <Movie key={index} id={movie.id} movie={movie}/>
+          return <Movie key={index} id={movie.id} movie={movie}/>
         })}
+
       </div>
     );
   }
