@@ -1,0 +1,56 @@
+$rating: 8;
+
+@mixin highRating() {
+    background: green;
+    border-radius: 12px;
+    color: white;
+    width: 8%;
+    padding: 10px;
+}
+
+@mixin midRating() {
+    background: yellow;
+    border-radius: 12px;
+    color: white;
+    width: 8%;
+    padding: 10px;
+}
+
+@mixin lowRating() {
+    background: red;
+    border-radius: 12px;
+    color: white;
+    width: 8%;
+    padding: 10px;
+}
+
+
+@function rating() {
+    @if $rating > 6.9 {
+        @return "high";
+    }
+    @if $rating < 7 {
+        @if $rating > 3.9 {
+            @return "mid";
+        }
+    }
+    @if $rating < 4 {
+        @return "low";
+    }
+    @if $rating == "" {
+        @return null;
+    }
+}
+
+.rating {
+    @if(rating() == "high") {
+        @include highRating();
+    }
+    @if(rating() == "mid") {
+        @include midRating();
+    }
+    @if(rating() == "low") {
+        @include lowRating();
+    }
+    
+}
