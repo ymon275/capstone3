@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './style.css'
 import NavBar from './components/nav-bar';
 import Movies from './components/movies';
+import SignUp from './components/SignUp';
+import { Container } from 'react-bootstrap'
 
 class App extends React.Component {
     constructor() {
@@ -45,9 +47,13 @@ class App extends React.Component {
 
         return <div>
 
-            <NavBar onSearch={this.onSearch()}/>
-            <Movies/>
-            {movies}
+            {/* <NavBar onSearch={this.onSearch()}/> */}
+            <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh"}}>
+              <div className="w-100" style={{ maxWidth: "400px"}}>
+                <SignUp/>
+              </div>
+            </Container>
+            {/* <Movies/> */}
         </div>;
     }
 }
