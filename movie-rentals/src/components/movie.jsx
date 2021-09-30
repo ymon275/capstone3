@@ -9,7 +9,7 @@ class Movie extends React.Component {
 
     render() { 
         const {movie} = this.props;
-        return <div className="card m-2">
+        return <div className="card">
             <div className="card-body">
                 {console.log('props', this.props)}
                 <div className="row">
