@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
+import { useAuth } from '../contexts/AuthContext'
+import db from '../firebase'
 class Movie extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            // currentUser: useAuth().currentUser
         }
     }
+
+    // addToCart() {
+    //     db.collection(this.currentUser);
+    // }
 
     render() { 
         const {movie} = this.props;
         return <div className="card">
             <div className="card-body">
-                {console.log('props', this.props)}
                 <div className="row">
                     <div className="col-2 mx-2">
                         <h1>{movie.rank}</h1>
