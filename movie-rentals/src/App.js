@@ -2,7 +2,7 @@ import React from 'react';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import ForgotPassword from './components/ForgotPassword';
-import Main from './components/Main';
+import Home from './components/Home';
 import Profile from './components/Profile';
 import UpdateProfile from './components/UpdateProfile'
 import PrivateRoute from './components/PrivateRoute';
@@ -16,7 +16,7 @@ function App() {
         <PrivateRoute path="update-profile" component={UpdateProfile} />
         <Route exact path="/SignUp" component={SignUp} />
         <Route exact path="/Login" component={Login} />
-        <Route exact path="/" component={Main} />
+        <Route exact path="/" component={Home} />
         <PrivateRoute exact path="/profile" component={Profile} />
         <Route exact path="/update-profile" component={UpdateProfile} />
         <Route exact path="/forgot-password" component={ForgotPassword} />

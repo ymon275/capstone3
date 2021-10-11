@@ -7,10 +7,10 @@ export default async function getMovies() {
     },
     }).then(response => response.json()
     ).then(result => {movies=result;
-      console.log('movies', movies);
+      // console.log('movies', movies);
       return movies;
     }
     ).catch(err => console.log(err));
-  console.log('movies again', movies)
+  // console.log('movies again', movies)
   return movies;
 };

@@ -1,6 +1,5 @@
 {
   "projects": {
-    "Movie Rentals": "movie-rentals-d6bf0"
-  },
-  "targets": {}
+    "default": "movie-rentals-d6bf0"
+  }
 }

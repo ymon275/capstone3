@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
-import { useAuth } from '../contexts/AuthContext'
-import db from '../firebase'
+import { db } from '../firebase'
+import { collection, addDoc } from "firebase/firestore";
+
 class Movie extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // currentUser: useAuth().currentUser
+            cart: {}
         }
     }
 
-    // addToCart() {
-    //     db.collection(this.currentUser);
-    // }
+    async addToCart() {
+        // console.log("this.props.movie.id", this.props.movie.id);
+        // console.log("this.props.user.uid", this.props.user.uid);
+            /* addDoc(doc(db, this.props.user.uid, "cart"), {
+                "movie": this.props.movie.id
+            }, {merge: true});*/
+            await addDoc(collection(db, this.props.user.uid), {
+                "image": this.props.movie.image,
+                "title": this.props.movie.title
+              });
+
+    }
 
     render() { 
         const {movie} = this.props;
@@ -25,11 +35,12 @@ class Movie extends React.Component {
                 
                     <div className="col align-items-center mx-4">
                         <h2 className="card-text rating">{movie.imDbRating}</h2>
-                        <h5 className="card-title">{movie.fullTitle}</h5>
+                        <h5 className="card-title">{movie.title}</h5>
+                        <p className="card-text">{movie.description}</p>
                         <p className="card-text">{movie.crew}</p>
                     </div>
                 </div>
-                <a href="#" className="btn btn-primary my-2">Add to cart</a>
+                <button href="#" className="btn btn-primary my-2" onClick={() => {this.addToCart()}}>Add to cart</button>
             </div>
         </div>;
     }

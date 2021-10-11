@@ -10,21 +10,24 @@ export default function Main() {
 
     async function fetchMovies() {
         let result = await getMovies();
-        console.log('result', result);
+        // console.log('result', result);
         setMovies(result.items);
     }
 
     async function sendMovies(value) {
         let result = await searchMovies(value);
-        console.log('valueRef', value)
         console.log('result', result)
-        setMovies(result);
+        setMovies(result.results);
     }
 
     useEffect(() => {
         fetchMovies();
     }, []);
-  
+
+    // useEffect(() => {
+    //     forceUpdate()
+    // }, [moviesRef]);
+   
     return (
         <div>
             <NavBar sendMovies={sendMovies}></NavBar>

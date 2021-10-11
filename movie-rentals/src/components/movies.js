@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import Movie from "./movie";
-import getMovies from '../getMovies';
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Movies({ movies }) {
 
-  const [moviesRef, setMovies] = useState();
+  const { currentUser } = useAuth();
 
     if(movies !== undefined && movies !== null && movies.length !== 0) {
     return (
       <div>
-        {console.log(movies)}
         {
           movies.map((movie, index) => {
-          return <Movie key={index} id={movie.id} movie={movie}/>
+          return <Movie key={index} id={movie.id} movie={movie} user={currentUser} />
           })}
       </div>
     );} else {

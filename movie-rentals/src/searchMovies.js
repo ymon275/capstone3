@@ -6,7 +6,7 @@ export default async function searchMovies(search) {
         'Content-Type':'application/json'
       },
       }).then(response=>response.json()
-      ).then(result => console.log('placeholder', result)
+      ).then(result => {movies=result;return movies;}
         ).catch(err => console.log(err));
     return movies;
   };
