@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import CartItems from './CartItems';
 import streamlineLogo from '../images/streamlineLogo.png';
 import shoppingCart from '../images/shopping-cart.png';
 import { useAuth } from '../contexts/AuthContext';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 
-export default function NavBar({ sendMovies }) {
+export default function NavBar({ sendMovies, children }) {
 
     const { currentUser } = useAuth();
     const [searchRef, setSearch] = useState();
@@ -14,6 +13,7 @@ export default function NavBar({ sendMovies }) {
         const GuestPage = (<nav className="navbar navbar-expand-lg navbar-light bg-light">
           <img src={streamlineLogo} alt="streamline logo" style={{ width: "40px", height: "40px"}}></img>
         <a className="navbar-brand mx-1" href="#">Streamline</a>
+        <a className="nav-link mx-1" href="/">Home</a>
       
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
@@ -25,7 +25,7 @@ export default function NavBar({ sendMovies }) {
             <Dropdown.Toggle id="dropdown-basic">
               <img src={shoppingCart} alt="shopping cart" className="" style={{ width: "30px", height: "30px"}}></img>
             </Dropdown.Toggle>
-            <CartItems />
+            {children}
           </Dropdown>
             </li>
           </ul>
@@ -44,6 +44,7 @@ export default function NavBar({ sendMovies }) {
       const LoggedInPage = (<nav className="navbar navbar-expand-lg navbar-light bg-light">
         <img src={streamlineLogo} alt="streamline logo" style={{ width: "40px", height: "40px"}}></img>
       <a className="navbar-brand" href="#">Streamline</a>
+      <a className="nav-link mx-1" href="/">Home</a>
     
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
@@ -60,7 +61,7 @@ export default function NavBar({ sendMovies }) {
             <Dropdown.Toggle id="dropdown-basic">
               <img src={shoppingCart} alt="shopping cart" className="" style={{ width: "30px", height: "30px"}}></img>
             </Dropdown.Toggle>
-            <CartItems />
+            {children}
           </Dropdown>
           </li>
         </ul>

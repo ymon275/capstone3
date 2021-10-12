@@ -16,10 +16,26 @@ class Movie extends React.Component {
             /* addDoc(doc(db, this.props.user.uid, "cart"), {
                 "movie": this.props.movie.id
             }, {merge: true});*/
+        if(this.props.movie.description === undefined) {
             await addDoc(collection(db, this.props.user.uid), {
-                "image": this.props.movie.image,
-                "title": this.props.movie.title
-              });
+                image: this.props.movie.image,
+                title: this.props.movie.title,
+                id: this.props.movie.id,
+                crew: this.props.movie.crew,
+                year: this.props.movie.year,
+            });
+            this.props.getItems();
+        } else {
+            await addDoc(collection(db, this.props.user.uid), {
+                image: this.props.movie.image,
+                title: this.props.movie.title,
+                id: this.props.movie.id,
+                description: this.props.movie.description
+            });
+            this.props.getItems();
+            
+        }
+        
 
     }
 
