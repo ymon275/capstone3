@@ -4,6 +4,7 @@ import Movies from './movies';
 import searchMovies from '../searchMovies.js';
 import getMovies from '../getMovies';
 import CartItems from './CartItems';
+import Carousel from './Carousel';
 import { useAuth } from '../contexts/AuthContext.js';
 import { query, collection, orderBy, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'
@@ -66,6 +67,7 @@ export default function Main() {
             <NavBar sendMovies={sendMovies}>
                    <CartItems getItems={getItems} itemsRef={itemsRef} docIds={docIds} />
             </NavBar>
+            <Carousel movies={moviesRef} />
             <Movies getItems={getItems} movies={moviesRef}></Movies>
         </div>
     )

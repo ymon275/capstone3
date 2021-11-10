@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require("webpack");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = function(_env, argv) {
   const isProduction = argv.mode === "production";
@@ -10,11 +11,10 @@ module.exports = function(_env, argv) {
 
   return {
     devtool: isDevelopment && "cheap-module-source-map",
-    entry: "./src/index.js",
+    entry: path.resolve(__dirname, 'src', 'index.js'),
     output: {
-      path: path.resolve(__dirname, "dist"),
-      filename: "assets/js/[name].[contenthash:8].js",
-      publicPath: "/"
+      path: path.resolve(__dirname, 'dist'),
+      filename: '[name].js'
     },
        module: {
           rules: [
@@ -29,6 +29,17 @@ module.exports = function(_env, argv) {
                   envName: isProduction ? "production" : "development"
                 }
               }
+            },
+            {
+              test: /\.s[ac]ss$/i,
+              use: [
+                // Creates `style` nodes from JS strings
+                "style-loader",
+                // Translates CSS into CommonJS
+                "css-loader",
+                // Compiles Sass to CSS
+                "sass-loader",
+              ],
             },
             {
                 test: /\.css$/,
@@ -73,8 +84,12 @@ module.exports = function(_env, argv) {
                     "process.env.NODE_ENV": JSON.stringify(
                       isProduction ? "production" : "development"
                     )
-                  })
+                  }),
+        new HtmlWebpackPlugin({
+          template: path.join(__dirname, "src", "index.html"),
+        }),
         ].filter(Boolean),
+
         optimization: {
                   minimize: isProduction,
                   minimizer: [
