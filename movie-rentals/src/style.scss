@@ -42,15 +42,21 @@ $rating: 8;
     }
 }
 
-.rating {
-    @if(rating() == "high") {
-        @include highRating();
-    }
-    @if(rating() == "mid") {
-        @include midRating();
-    }
-    @if(rating() == "low") {
-        @include lowRating();
-    }
+// .rating {
+//     @if(rating() == "high") {
+//         @include highRating();
+//     }
+//     @if(rating() == "mid") {
+//         @include midRating();
+//     }
+//     @if(rating() == "low") {
+//         @include lowRating();
+//     }
     
+// }
+
+.lightThemeButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
 }

@@ -5,6 +5,7 @@ import searchMovies from '../searchMovies.js';
 import getMovies from '../getMovies';
 import CartItems from './CartItems';
 import Carousel from './Carousel';
+import LightThemeButton from './LightThemeButton.js';
 import { useAuth } from '../contexts/AuthContext.js';
 import { query, collection, orderBy, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'
@@ -69,6 +70,7 @@ export default function Main() {
             </NavBar>
             <Carousel movies={moviesRef} />
             <Movies getItems={getItems} movies={moviesRef}></Movies>
+            <LightThemeButton></LightThemeButton>
         </div>
     )
 }

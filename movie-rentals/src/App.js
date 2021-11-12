@@ -1,15 +1,28 @@
-import React from 'react';
-import SignUp from './components/SignUp';
-import Login from './components/Login';
-import ForgotPassword from './components/ForgotPassword';
-import Home from './components/Home';
-import Profile from './components/Profile';
-import UpdateProfile from './components/UpdateProfile'
-import PrivateRoute from './components/PrivateRoute';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import React, { useMemo, useState, useEffect } from "react";
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
+import ForgotPassword from "./components/ForgotPassword";
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import UpdateProfile from "./components/UpdateProfile";
+import PrivateRoute from "./components/PrivateRoute";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import ThemeContext from "./contexts/ThemeContext";
+import { useTheme } from "./contexts/ThemeContext";
+
 function App() {
+  const [themeColor, setThemeColor] = useState("light");
+  const context = useTheme();
+  const value = useMemo(() => ({ themeColor, setThemeColor }), [themeColor]);
+
+  useEffect(() => {
+    console.log(value)
+    
+  }, [value])
+
+  
   const app = (
     <Router>
       <Switch>
@@ -23,11 +36,29 @@ function App() {
       </Switch>
     </Router>
   );
-  return (
-    <AuthProvider>
-      <div className="App">{app}</div>
-    </AuthProvider>
-  );
+  if (value === "light") {
+    return (
+      <ThemeContext.Provider value={value}>
+        <AuthProvider>
+          <div className="App bg-light">{app}</div>
+        </AuthProvider>
+      </ThemeContext.Provider>
+    );
+  } else if (value === "dark") {
+    <ThemeContext.Provider value={value}>
+      <AuthProvider>
+        <div className="App bg-dark">{app}</div>
+      </AuthProvider>
+    </ThemeContext.Provider>;
+  } else {
+    return (
+      <ThemeContext.Provider value={value}>
+        <AuthProvider>
+          <div className="App">{app}</div>
+        </AuthProvider>
+      </ThemeContext.Provider>
+    );
+  }
 }
 
 export default App;
