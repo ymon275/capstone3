@@ -16,12 +16,6 @@ function App() {
   const [themeColor, setThemeColor] = useState("light");
   const context = useTheme();
   const value = useMemo(() => ({ themeColor, setThemeColor }), [themeColor]);
-
-  useEffect(() => {
-    console.log(value)
-    
-  }, [value])
-
   
   const app = (
     <Router>
