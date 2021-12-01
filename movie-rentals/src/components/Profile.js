@@ -23,7 +23,7 @@ export default function Profile() {
   }
   if (context.themeColor === "light") {
     return (
-      <Container className="w-50 m-auto mt-5 bg-dark">
+      <Container className="w-100 m-auto mt-5 bg-dark">
         <Card>
           <Card.Body>
             <h2 className="text-center mb-4">Profile</h2>
@@ -44,8 +44,8 @@ export default function Profile() {
     );
   } else {
     return (
-      <Container className="w-50 m-auto mt-5 bg-dark">
-        <Card>
+      <Container className="w-100 m-auto mt-5 bg-dark">
+        <Card className="bg-dark text-light">
           <Card.Body>
             <h2 className="text-center mb-4">Profile</h2>
             {error && <Alert variant="danger">{error}</Alert>}

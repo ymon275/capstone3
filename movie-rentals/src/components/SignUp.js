@@ -35,7 +35,7 @@ export default function SignUp() {
 
   if (context.themeColor === "light") {
     return (
-      <div className="container w-25 mt-5">
+      <div className="container w-100 mt-5">
         <Card>
           <Card.Body>
             <h2 className="text-center mb-4">Sign Up</h2>
@@ -71,7 +71,7 @@ export default function SignUp() {
     );
   } else if (context.themeColor === "dark") {
     return (
-      <div className="container text-light bg-dark w-25 mt-5">
+      <div className="container text-light bg-dark w-100 mt-5">
         <Card className="bg-dark text-light">
           <Card.Body>
             <h2 className="text-center mb-4">Sign Up</h2>

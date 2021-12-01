@@ -38,15 +38,16 @@ export default function Movie({ movie, getItems, user }) {
       <div className="card">
         <div className="card-body">
           <div className="row">
-            <div className="col-2 mx-2">
+            <div className="col-4 mx-1">
               <h1>{movie.rank}</h1>
               <img
-                style={{ height: "297px", width: "200px" }}
+                className="w-100 h-75"
+                // style={{ height: "297px", width: "200px" }}
                 src={movie.image}
               ></img>
             </div>
 
-            <div className="col align-items-center mx-4">
+            <div className="col align-items-center">
               <h2 className="card-text rating">{movie.imDbRating}</h2>
               <h5 className="card-title">{movie.title}</h5>
               <p className="card-text">{movie.description}</p>
@@ -70,15 +71,16 @@ export default function Movie({ movie, getItems, user }) {
       <div className="card bg-dark">
         <div className="card-body">
           <div className="row">
-            <div className="col-2 mx-2">
+            <div className="col-4 mx-1">
               <h1 className="text-light">{movie.rank}</h1>
               <img
-                style={{ height: "297px", width: "200px" }}
+                className="w-100 h-75"
+                // style={{ height: "297px", width: "200px" }}
                 src={movie.image}
               ></img>
             </div>
 
-            <div className="col align-items-center mx-4">
+            <div className="col align-items-center">
               <h2 className="card-text text-light rating">
                 {movie.imDbRating}
               </h2>

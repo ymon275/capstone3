@@ -1,16 +1,22 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import LightThemeButton from "./LightThemeButton";
+import ThemeContext from "../contexts/ThemeContext";
 
 export default function UpdateProfile() {
+  const lightTheme = "bg-light text-dark";
+  const darkTheme = "bg-dark text-light";
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const { currentUser, updatePassword, updateEmail } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [theme, setTheme] = useState(lightTheme);
   let history = useHistory();
+  const context = useContext(ThemeContext);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -52,9 +58,14 @@ export default function UpdateProfile() {
     setLoading(false);
   }
 
+  useEffect(() => {
+    setTheme(context.themeColor === "dark" ? darkTheme : lightTheme)
+  }, [context.themeColor])
+
   return (
-    <div className="container w-25 mt-5">
-      <Card>
+    <>
+    <div className="container w-100 mt-5">
+      <Card className={theme}>
         <Card.Body>
           <h2 className="text-center mb-4">Update Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -96,5 +107,7 @@ export default function UpdateProfile() {
         <Link to="/">Cancel</Link>
       </div>
     </div>
+    <LightThemeButton></LightThemeButton>
+    </>
   );
 }

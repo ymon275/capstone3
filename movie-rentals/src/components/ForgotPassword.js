@@ -39,7 +39,7 @@ export default function ForgotPassword() {
 
   return (
     <>
-      <div className="container mt-5 w-25">
+      <div className="container mt-5 w-100">
         <Card className={theme}>
           <Card.Body>
             <h2 className="text-center mb-4">Reset Password</h2>
