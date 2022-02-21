@@ -59,7 +59,7 @@ export default function NavBar({ sendMovies, children }) {
         Home
       </a>
 
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <div className="navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           {/* <li className="nav-item active">
               <a className="nav-link" href="/">Home</a>
@@ -117,7 +117,7 @@ export default function NavBar({ sendMovies, children }) {
       <a className="nav-link mx-1" href="/">
         Home
       </a>
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <div className="navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li>
             <Dropdown data-toggle="tooltip" data-placement="right" title="Cart">

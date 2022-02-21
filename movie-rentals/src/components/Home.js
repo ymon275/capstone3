@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar.js";
 import Movies from "./movies";
-import searchMovies from "../searchMovies.js";
-import getMovies from "../getMovies";
+import searchMovies from "../modules/searchMovies.js";
+import getMovies from "../modules/getMovies";
 import CartItems from "./CartItems";
 import Carousel from "./Carousel";
 import LightThemeButton from "./LightThemeButton.js";
@@ -22,8 +22,8 @@ export default function Main() {
     setMovies(result.items);
   }
 
-  async function sendMovies(value) {
-    let result = await searchMovies(value);
+  async function sendMovies(search) {
+    let result = await searchMovies(search);
     console.log("result", result);
     setMovies(result.results);
   }
