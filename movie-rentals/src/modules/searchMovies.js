@@ -1,6 +1,6 @@
 const fetchDefault = require("node-fetch");
 
-function searchMovies(fetch = fetchDefault, search) {
+export default function searchMovies(search, fetch = fetchDefault) {
   if (search) {
     return fetch(
       `https://imdb-api.com/en/API/SearchMovie/k_xa1iox8h/${search}`,
@@ -15,5 +15,3 @@ function searchMovies(fetch = fetchDefault, search) {
       .catch((err) => console.log(err));
   }
 }
-
-module.exports = searchMovies;

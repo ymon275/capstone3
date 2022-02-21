@@ -4,15 +4,9 @@ import { collection, addDoc } from "firebase/firestore";
 import { useTheme } from "../contexts/ThemeContext";
 
 export default function Movie({ movie, getItems, user }) {
-  const [cart, setCart] = useState();
   const context = useTheme();
 
   async function addToCart() {
-    // console.log("this.props.movie.id", this.props.movie.id);
-    // console.log("this.props.user.uid", this.props.user.uid);
-    /* addDoc(doc(db, this.props.user.uid, "cart"), {
-                "movie": this.props.movie.id
-            }, {merge: true});*/
     if (movie.description === undefined) {
       await addDoc(collection(db, user.uid), {
         image: movie.image,
@@ -40,11 +34,7 @@ export default function Movie({ movie, getItems, user }) {
           <div className="row">
             <div className="col-4 mx-1">
               <h1>{movie.rank}</h1>
-              <img
-                className="w-100 h-75"
-                // style={{ height: "297px", width: "200px" }}
-                src={movie.image}
-              ></img>
+              <img className="w-100 h-75" src={movie.image}></img>
             </div>
 
             <div className="col align-items-center">
@@ -73,11 +63,7 @@ export default function Movie({ movie, getItems, user }) {
           <div className="row">
             <div className="col-4 mx-1">
               <h1 className="text-light">{movie.rank}</h1>
-              <img
-                className="w-100 h-75"
-                // style={{ height: "297px", width: "200px" }}
-                src={movie.image}
-              ></img>
+              <img className="w-100 h-75" src={movie.image}></img>
             </div>
 
             <div className="col align-items-center">

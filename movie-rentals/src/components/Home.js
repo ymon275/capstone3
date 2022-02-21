@@ -7,8 +7,7 @@ import CartItems from "./CartItems";
 import Carousel from "./Carousel";
 import LightThemeButton from "./LightThemeButton.js";
 import { useAuth } from "../contexts/AuthContext.js";
-import { query, collection, orderBy, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+import getItems from "../modules/getItems.js";
 
 export default function Main() {
   const { currentUser } = useAuth();
@@ -18,7 +17,6 @@ export default function Main() {
 
   async function fetchMovies() {
     let result = await getMovies();
-    console.log("result", result);
     setMovies(result.items);
   }
 
@@ -28,45 +26,24 @@ export default function Main() {
     setMovies(result.results);
   }
 
+  async function fetchItems() {
+    const items = await getItems(currentUser);
+    setItemsRef(items.data);
+    setDocIds(items.ids);
+  }
+
   useEffect(() => {
     fetchMovies();
-    getItems();
+    fetchItems();
   }, []);
 
-  // useEffect(() => {
-  //     forceUpdate()
-  // }, [moviesRef]);
-
-  async function getItems() {
-    if (currentUser !== null) {
-      const q = query(collection(db, currentUser.uid), orderBy("title"));
-      // console.log('q', q);
-      const querySnapshot = await getDocs(q);
-      // console.log("snapshot", querySnapshot);
-
-      let array = [];
-      let docArray = [];
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-        array.push(doc.data());
-        docArray.push(doc.id);
-      });
-      // console.log(array);
-      setItemsRef(array);
-      setDocIds(docArray);
-      // setItemsRef(itemsRef => [...itemsRef, array]);
-      // console.log('items', itemsRef);
-      // console.log('docIds', docIds)
-    }
-  }
   return (
     <div>
       <NavBar sendMovies={sendMovies}>
-        <CartItems getItems={getItems} itemsRef={itemsRef} docIds={docIds} />
+        <CartItems getItems={fetchItems} itemsRef={itemsRef} docIds={docIds} />
       </NavBar>
       <Carousel movies={moviesRef} />
-      <Movies getItems={getItems} movies={moviesRef}></Movies>
+      <Movies getItems={fetchItems} movies={moviesRef}></Movies>
       <LightThemeButton></LightThemeButton>
     </div>
   );

@@ -1,6 +1,6 @@
-import { sum } from "../src/components/calculator/sum";
-import { difference } from "../src/components/calculator/difference";
-import { divisor } from "../src/components/calculator/divisor";
+import { sum } from "../src/modules/calculator/sum";
+import { difference } from "../src/modules/calculator/difference";
+import { divisor } from "../src/modules/calculator/divisor";
 
 describe("Calculator", () => {
   describe("when adding two numbers", () => {

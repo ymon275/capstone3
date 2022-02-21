@@ -2,6 +2,12 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { getFirestore } from 'firebase/firestore'
+// import { 
+//   browserLocalPersistence,
+//   inMemoryPersistence,
+//   indexedDBLocalPersistence,
+//   initializeAuth,
+// } from 'firebase/auth';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,5 +24,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+// export const auth = initializeAuth(app, {
+//   persistence:
+//     typeof window === 'undefined'
+//       ? inMemoryPersistence
+//       : [indexedDBLocalPersistence, browserLocalPersistence],
+// });
 export const auth = app.auth();
 export default app;
+

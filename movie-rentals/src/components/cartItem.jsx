@@ -22,7 +22,6 @@ class cartItem extends React.Component {
             style={{ width: "20px", height: "30px" }}
           ></img>
           {this.props.item.title}
-          {console.log(this.props)}
           <button
             className="btn btn-danger mx-2"
             onClick={() => this.deleteItem()}

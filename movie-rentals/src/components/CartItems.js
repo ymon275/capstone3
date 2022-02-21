@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CartItem from "./cartItem";
+import _ from "lodash";
 import { useAuth } from "../contexts/AuthContext";
-import { collection, query, getDocs, orderBy } from "firebase/firestore";
-import { db } from "../firebase";
 import Dropdown from "react-bootstrap/Dropdown";
 
 export default function CartItems({
@@ -22,7 +21,7 @@ export default function CartItems({
   ) {
     return (
       <Dropdown.Menu id="dropdown">
-        {itemsRef.map((item, index) => {
+        {_.map(itemsRef, (item, index) => {
           let docId = docIds[index];
           // console.log('index', index)
           // console.log('docId', docId)
