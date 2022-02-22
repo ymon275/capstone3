@@ -1,16 +1,11 @@
 import Dropdown from "react-bootstrap/Dropdown";
-import React, { Component, useEffect } from "react";
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import React from "react";
+import deleteItem from "../modules/firestore-api/deleteItem";
+
 class cartItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-  }
-
-  async deleteItem() {
-    await deleteDoc(doc(db, this.props.user.uid, this.props.docId));
-    this.props.getItems();
   }
 
   render() {
@@ -20,11 +15,14 @@ class cartItem extends React.Component {
           <img
             src={this.props.item.image}
             style={{ width: "20px", height: "30px" }}
+            alt={this.props.item.title}
           ></img>
           {this.props.item.title}
           <button
             className="btn btn-danger mx-2"
-            onClick={() => this.deleteItem()}
+            onClick={() =>
+              deleteItem(this.props.user, this.props.docId, this.props.getItems)
+            }
           >
             x
           </button>

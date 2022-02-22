@@ -7,7 +7,7 @@ import CartItems from "./CartItems";
 import Carousel from "./Carousel";
 import LightThemeButton from "./LightThemeButton.js";
 import { useAuth } from "../contexts/AuthContext.js";
-import getItems from "../modules/getItems.js";
+import getItems from "../modules/firestore-api/getItems.js";
 
 export default function Main() {
   const { currentUser } = useAuth();

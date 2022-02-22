@@ -1,31 +1,9 @@
-import React, { Component, useState, useEffect } from "react";
-import { db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import React from "react";
 import { useTheme } from "../contexts/ThemeContext";
+import addToCart from "../modules/firestore-api/addToCart";
 
 export default function Movie({ movie, getItems, user }) {
   const context = useTheme();
-
-  async function addToCart() {
-    if (movie.description === undefined) {
-      await addDoc(collection(db, user.uid), {
-        image: movie.image,
-        title: movie.title,
-        id: movie.id,
-        crew: movie.crew,
-        year: movie.year,
-      });
-      getItems();
-    } else {
-      await addDoc(collection(db, user.uid), {
-        image: movie.image,
-        title: movie.title,
-        id: movie.id,
-        description: movie.description,
-      });
-      getItems();
-    }
-  }
 
   if (context.themeColor === "light") {
     return (
@@ -34,7 +12,11 @@ export default function Movie({ movie, getItems, user }) {
           <div className="row">
             <div className="col-4 mx-1">
               <h1>{movie.rank}</h1>
-              <img className="w-100 h-75" src={movie.image}></img>
+              <img
+                className="w-100 h-75"
+                src={movie.image}
+                alt={movie.title}
+              ></img>
             </div>
 
             <div className="col align-items-center">
@@ -48,7 +30,7 @@ export default function Movie({ movie, getItems, user }) {
             href="#"
             className="btn btn-outline-primary my-2"
             onClick={() => {
-              addToCart();
+              addToCart(movie, user, getItems);
             }}
           >
             Add to cart
@@ -63,7 +45,11 @@ export default function Movie({ movie, getItems, user }) {
           <div className="row">
             <div className="col-4 mx-1">
               <h1 className="text-light">{movie.rank}</h1>
-              <img className="w-100 h-75" src={movie.image}></img>
+              <img
+                className="w-100 h-75"
+                src={movie.image}
+                alt={movie.title}
+              ></img>
             </div>
 
             <div className="col align-items-center">
@@ -79,7 +65,7 @@ export default function Movie({ movie, getItems, user }) {
             href="#"
             className="btn btn-primary my-2"
             onClick={() => {
-              addToCart();
+              addToCart(movie, user, getItems);
             }}
           >
             Add to cart

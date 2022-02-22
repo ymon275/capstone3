@@ -1,47 +1,159 @@
-const getMovies = require("C:/Users/beats/Repos/CapstoneProject3/MovieRental/movie-rentals/src/modules/getMovies.js");
-const searchMovies = require("C:/Users/beats/Repos/CapstoneProject3/MovieRental/movie-rentals/src/modules/searchMovies.js");
+import _ from "lodash";
 
-async function getItems(currentUser, db) {
-  if (currentUser !== null) {
-    const q = query(collection(db, currentUser.uid), orderBy("title"));
-    const querySnapshot = await getDocs(q);
+test("integration testing for firestore", () => {
+  let db = {
+    users: [
+      {
+        uId: "Angelota",
+        docs: [
+          {
+            id: "123",
+            title: "Honey Boo Boo",
+          },
+          {
+            id: "456",
+            title: "Hulk",
+          },
+          {
+            id: "789",
+            title: "Shrek",
+          },
+        ],
+      },
+      {
+        uId: "Jean",
+        docs: [
+          {
+            id: "098",
+            title: "Inception",
+          },
+          {
+            id: "765",
+            title: "Licorice Pizza",
+          },
+          {
+            id: "432",
+            title: "Red Notice",
+          },
+        ],
+      },
+    ],
+  };
 
-    let array = [];
-    let docArray = [];
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-      array.push(doc.data());
-      docArray.push(doc.id);
-    });
-    setItemsRef(array);
-    setDocIds(docArray);
-  }
-}
+  let sampleToAdd = {
+    uId: "Jean",
+    docs: [
+      {
+        id: "361",
+        title: "Shrek 2",
+      },
+    ],
+  };
 
-async function addToCart() {
-  if (movie.description === undefined) {
-    await addDoc(collection(db, user.uid), {
-      image: movie.image,
-      title: movie.title,
-      id: movie.id,
-      crew: movie.crew,
-      year: movie.year,
-    });
-    getItems();
-  } else {
-    await addDoc(collection(db, user.uid), {
-      image: movie.image,
-      title: movie.title,
-      id: movie.id,
-      description: movie.description,
-    });
-    getItems();
-  }
-}
+  let sampleToRemove = {
+    uId: "Angelota",
+    docs: [
+      {
+        id: "789",
+        title: "Shrek",
+      },
+    ],
+  };
+  const getUserDocs = (O) =>
+    db.users[_.findIndex(db.users, (o) => o.uId == O.uId)].docs;
+  const setUserDocs = (uId, docs) =>
+    (db.users[_.findIndex(db.users, (o) => o.uId == uId)].docs = docs);
+  const dbWithAdded = {
+    users: [
+      {
+        uId: "Angelota",
+        docs: [
+          {
+            id: "123",
+            title: "Honey Boo Boo",
+          },
+          {
+            id: "456",
+            title: "Hulk",
+          },
+        ],
+      },
+      {
+        uId: "Jean",
+        docs: [
+          {
+            id: "098",
+            title: "Inception",
+          },
+          {
+            id: "765",
+            title: "Licorice Pizza",
+          },
+          {
+            id: "432",
+            title: "Red Notice",
+          },
+          {
+            id: "361",
+            title: "Shrek 2",
+          },
+        ],
+      },
+    ],
+  };
+  const dbWithRemoved = {
+    users: [
+      {
+        uId: "Angelota",
+        docs: [
+          {
+            id: "123",
+            title: "Honey Boo Boo",
+          },
+          {
+            id: "456",
+            title: "Hulk",
+          },
+        ],
+      },
+      {
+        uId: "Jean",
+        docs: [
+          {
+            id: "098",
+            title: "Inception",
+          },
+          {
+            id: "765",
+            title: "Licorice Pizza",
+          },
+          {
+            id: "432",
+            title: "Red Notice",
+          },
+        ],
+      },
+    ],
+  };
 
-async function deleteItem() {
-  await deleteDoc(doc(db, this.props.user.uid, this.props.docId));
-  this.props.getItems();
-}
+  const getItemsMock = jest.fn();
+  getItemsMock.mockResolvedValue(db);
 
-it.todo("integration test");
+  const addToCartMock = jest.fn((object) => {
+    return Promise.resolve(
+      setUserDocs(object.uId, _.concat(getUserDocs(object), object.docs))
+    );
+  });
+  const deleteItemMock = jest.fn((object) => {
+    return Promise.resolve(
+      setUserDocs(
+        object.uId,
+        _.filter(getUserDocs(object), (o) => o.id !== object.docs[0].id)
+      )
+    );
+  });
+
+  getItemsMock().then((result) => expect(result).toBe(db));
+  deleteItemMock(sampleToRemove).then(expect(db).toStrictEqual(dbWithRemoved));
+  addToCartMock(sampleToAdd).then(expect(db).toStrictEqual(dbWithAdded));
+});
