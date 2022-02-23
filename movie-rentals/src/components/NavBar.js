@@ -50,7 +50,7 @@ export default function NavBar({ sendMovies, children }) {
       <img
         src={streamlineLogo}
         alt="streamline logo"
-        style={{ width: "40px", height: "40px" }}
+        style={{ width: "60px", height: "40px" }}
       ></img>
       <a className="navbar-brand mx-1" href="#">
         Streamline
