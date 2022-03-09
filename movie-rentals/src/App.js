@@ -16,7 +16,7 @@ function App() {
   const [themeColor, setThemeColor] = useState("light");
   const context = useTheme();
   const value = useMemo(() => ({ themeColor, setThemeColor }), [themeColor]);
-  
+
   const app = (
     <Router>
       <Switch>
@@ -39,11 +39,13 @@ function App() {
       </ThemeContext.Provider>
     );
   } else if (value === "dark") {
-    <ThemeContext.Provider value={value}>
-      <AuthProvider>
-        <div className="App bg-dark">{app}</div>
-      </AuthProvider>
-    </ThemeContext.Provider>;
+    return (
+      <ThemeContext.Provider value={value}>
+        <AuthProvider>
+          <div className="App bg-dark">{app}</div>
+        </AuthProvider>
+      </ThemeContext.Provider>
+    );
   } else {
     return (
       <ThemeContext.Provider value={value}>

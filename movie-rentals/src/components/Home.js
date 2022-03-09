@@ -28,6 +28,7 @@ export default function Main() {
 
   async function fetchItems() {
     const items = await getItems(currentUser);
+    console.log(items)
     setItemsRef(items.data);
     setDocIds(items.ids);
   }

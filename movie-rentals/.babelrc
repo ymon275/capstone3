@@ -3,16 +3,33 @@
     [
       "@babel/preset-env",
       {
+        "targets": {
+          "browsers": "last 2 versions, ie 10-11"
+        },
         "modules": false
-      },
-      "jest"
+      }
     ],
     ["@babel/preset-react"]
   ],
-  "plugins": ["@babel/plugin-syntax-dynamic-import"],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties"
+  ],
   "env": {
-    "development": {
-      "plugins": ["transform-es2015-modules-commonjs"]
+    "production": {
+      "only": ["src"],
+      "plugins": [
+        [
+          "transform-react-remove-prop-types",
+          {
+            "removeImport": true
+          }
+        ],
+        "transform-es2015-modules-commonjs",
+        "@babel/plugin-transform-react-inline-elements",
+        "@babel/plugin-transform-react-constant-elements"
+      ]
     },
     "test": {
       "presets": [
@@ -22,7 +39,8 @@
             "modules": "auto"
           },
           "jest"
-        ]
+        ],
+        ["@babel/preset-react"]
       ],
       "plugins": ["@babel/plugin-transform-runtime"]
     }

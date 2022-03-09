@@ -28,4 +28,8 @@ export default async function getItems(currentUser, inputDoc) {
       ids: docArray,
     };
   }
+  return {
+    data: [],
+    ids: []
+  }
 }
