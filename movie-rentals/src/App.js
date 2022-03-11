@@ -8,7 +8,7 @@ import UpdateProfile from "./components/UpdateProfile";
 import PrivateRoute from "./components/PrivateRoute";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import ThemeContext from "./contexts/ThemeContext";
 import { useTheme } from "./contexts/ThemeContext";
 

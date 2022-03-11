@@ -1,5 +1,5 @@
 import React from "react";
-import CartItem from "./cartItem";
+import CartItem from "./CartItem";
 import _ from "lodash";
 import { useAuth } from "../contexts/AuthContext";
 import Dropdown from "react-bootstrap/Dropdown";
