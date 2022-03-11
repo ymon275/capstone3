@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const port = process.env.PORT || 3000;
 
@@ -19,19 +20,8 @@ module.exports = {
         loader: "babel-loader",
       },
       {
-        test: /\.css$/i,                                                                                                                                                             
-        use: ["style-loader", "css-loader", "sass-loader"],                                                                                                                          
-      },  
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          // Creates `style` nodes from JS strings
-          "style-loader",
-          // Translates CSS into CommonJS
-          "css-loader",
-          // Compiles Sass to CSS
-          "sass-loader",
-        ],
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -44,6 +34,8 @@ module.exports = {
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin(),
+
     new HtmlWebpackPlugin({
       template: 'public/index.html',
       favicon: 'public/favicon.ico'
